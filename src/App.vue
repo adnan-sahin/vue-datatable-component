@@ -16,13 +16,13 @@ export default {
     return {
       flights: flights,
       headers: [
-        { text: "Date", value: "date" },
-        { text: "Airline", value: "airline" },
-        { text: "Flight No", value: "flightNo" },
-        { text: "Origin", value: "origin" },
-        { text: "Schedule Time", value: "scheduleTime" },
-        { text: "Estimation Time", value: "estimationTime" },
-        { text: "Note", value: "note" }
+        { text: "Date", value: "date", visible: true },
+        { text: "Airline", value: "airline", visible: false },
+        { text: "Flight No", value: "flightNo", visible: true },
+        { text: "Origin", value: "origin", visible: true },
+        { text: "Schedule Time", value: "scheduleTime", visible: true },
+        { text: "Estimation Time", value: "estimationTime", visible: true },
+        { text: "Note", value: "note", visible: true }
       ]
     };
   }
