@@ -6,7 +6,7 @@
         Column Visibility
         <ul class="headers">
           <li v-for="(header,index) in headerItems" :key="index">
-            <label>
+            <label :class="header.visible?'':'bg--disabled'">
               <input class="chc--header" type="checkbox" v-model="header.visible" />
               {{header.text}}
             </label>
@@ -62,7 +62,7 @@ export default {
   },
   computed: {
     sortedItems() {
-      return this.items.sort((a, b) => {
+      return this.items.slice().sort((a, b) => {
         let modifierDirection = 1;
         if (this.currentSortDirection === "desc") modifierDirection = -1;
         if (a[this.currentSortName] < b[this.currentSortName])
@@ -90,24 +90,56 @@ export default {
 };
 </script>
 <style scoped>
-table thead th {
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-spacing: 0;
+  border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
   cursor: pointer;
 }
+.thead-dark {
+  background-color: #343a40;
+  color: #fff;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1400px;
+}
 .column--visibility {
-  text-align: left;
   display: block;
   margin: 10px 0;
   position: relative;
+  text-align: left;
+  font-size: 0.9rem;
 }
 .column--visibility label.toggle {
   color: white;
-  padding: 7px 10px;
-  background: #444444;
+  padding: 10px;
+  background: #343a40;
   border: none;
   border-radius: 3px;
   outline: none;
   min-width: 170px;
+  display: inline-block;
   box-sizing: border-box;
+  text-align: center;
 }
 .column--visibility label.toggle:active {
   background: #5e5c5c;
@@ -116,11 +148,11 @@ table thead th {
 .column--visibility ul {
   list-style: none;
   padding: 5px 0;
-  margin-top: 10px;
 }
 .column--visibility ul li {
   padding: 2px 4px;
   font-weight: bold;
+  text-align: center;
 }
 .headers {
   display: none;
@@ -128,16 +160,36 @@ table thead th {
   border: 1px solid grey;
   border-radius: 3px;
   position: absolute;
+  top: 25px;
+  min-width: 170px;
+  left: 0;
   z-index: 2;
   color: black;
+  box-sizing: border-box;
+}
+.headers label {
+  background: rgb(217, 219, 217);
+  padding: 5px 0;
+  min-width: 150px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  display: inline-block;
+  cursor: pointer;
+}
+label.bg--disabled {
+  background-color: #edf1f3 !important;
+  color: #928f8f !important;
+}
+.bg--primary {
+  background-color: #007bff !important;
 }
 .column--visibility .chc--toggle:checked ~ .headers {
   display: block;
 }
 .chc--toggle {
-  visibility: hidden;
+  display: none;
 }
-.bg--primary {
-  background-color: #007bff !important;
+.chc--header {
+  display: none;
 }
 </style>
