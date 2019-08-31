@@ -5,7 +5,7 @@
         <input class="chc--toggle" type="checkbox" v-model="toggleVisibility" />
         Column Visibility
         <ul class="headers">
-          <li v-for="(header,index) in headers" :key="index">
+          <li v-for="(header,index) in headerItems" :key="index">
             <label>
               <input class="chc--header" type="checkbox" v-model="header.visible" />
               {{header.text}}
@@ -17,45 +17,47 @@
 
     <table class="table table-striped">
       <thead class="thead-dark">
-        <tr>
+        <draggable v-model="headerItems" tag="tr">
           <th
-            v-for="(header,index) in headers"
+            v-for="(header,index) in headerItems"
             :key="index"
             @click="sort(header.value)"
             v-show="header.visible"
+            scope="col"
           >
-            {{header.text}}
+            {{ header.text }}
             <template v-if="currentSortName==header.value">
               <i :class="sortIconClass"></i>
             </template>
           </th>
-        </tr>
+        </draggable>
       </thead>
       <tbody>
         <tr v-for="(item,index) in sortedItems" :key="index">
-          <template v-show="headers[index]">
-            <td
-              v-show="headers.filter(h=>h.value==key)[0]['visible']"
-              v-for="(value,key) in item"
-              :key="key"
-            >{{value}}</td>
-          </template>
+          <td
+            v-for="(header,index) in headerItems"
+            :key="index"
+            v-show="headerItems.filter(h=>h.value==header.value)[0]['visible']"
+          >{{ item[header.value] }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
 <script>
+import draggable from "vuedraggable";
 export default {
   props: {
     headers: { required: true, type: Array },
     items: { required: true, type: Array }
   },
+  components: { draggable },
   data() {
     return {
       currentSortName: this.headers[0].value,
       currentSortDirection: "asc",
-      toggleVisibility: false
+      toggleVisibility: false,
+      headerItems: this.headers
     };
   },
   computed: {
@@ -88,6 +90,9 @@ export default {
 };
 </script>
 <style scoped>
+table thead th {
+  cursor: pointer;
+}
 .column--visibility {
   text-align: left;
   display: block;

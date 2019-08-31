@@ -17,7 +17,7 @@ export default {
       flights: flights,
       headers: [
         { text: "Date", value: "date", visible: true },
-        { text: "Airline", value: "airline", visible: false },
+        { text: "Airline", value: "airline", visible: true },
         { text: "Flight No", value: "flightNo", visible: true },
         { text: "Origin", value: "origin", visible: true },
         { text: "Schedule Time", value: "scheduleTime", visible: true },
