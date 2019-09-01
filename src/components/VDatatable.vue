@@ -1,18 +1,23 @@
 <template>
   <div class="container">
-    <div class="column--visibility">
-      <label class="toggle" :class="toggleVisibility?'bg--primary':''">
-        <input class="chc--toggle" type="checkbox" v-model="toggleVisibility" />
-        Column Visibility
-        <ul class="headers">
-          <li v-for="(header,index) in headerItems" :key="index">
-            <label :class="header.visible?'':'bg--disabled'">
-              <input class="chc--header" type="checkbox" v-model="header.visible" />
-              {{header.text}}
-            </label>
-          </li>
-        </ul>
-      </label>
+    <div class="toolbar">
+      <div class="column--visibility">
+        <label class="toggle" :class="toggleVisibility?'bg--primary':''">
+          <input class="chc--toggle" type="checkbox" v-model="toggleVisibility" />
+          Column Visibility
+          <ul class="headers">
+            <li v-for="(header,index) in headerItems" :key="index">
+              <label :class="header.visible?'':'bg--disabled'">
+                <input class="chc--header" type="checkbox" v-model="header.visible" />
+                {{header.text}}
+              </label>
+            </li>
+          </ul>
+        </label>
+      </div>
+      <div class="search--container">
+        <input type="text" placeholder="Search" v-model="search" />
+      </div>
     </div>
 
     <table class="table table-striped">
@@ -57,13 +62,15 @@ export default {
     return {
       currentSortName: this.headers[0].value,
       currentSortDirection: "asc",
+      search: "",
       toggleVisibility: false,
-      headerItems: this.headers
+      headerItems: this.headers,
+      dataItems: this.items
     };
   },
   computed: {
     sortedItems() {
-      return this.items.sort((a, b) => {
+      return this.dataItems.sort((a, b) => {
         let modifier = 1;
         if (this.currentSortDirection === "desc") modifier = -1;
         if (a[this.currentSortName] < b[this.currentSortName])
@@ -87,6 +94,25 @@ export default {
         this.currentSortDirection == sortDirection
         ? "active"
         : "";
+    }
+  },
+  watch: {
+    search: function() {
+      const result = [];
+      const values = Object.values(this.items);
+      for (let item of values) {
+        let row = Object.values(item);
+        for (let col of row) {
+          if (
+            col.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 &&
+            result.filter(a => a == item).length == 0
+          ) {
+            result.push(item);
+            break;
+          }
+        }
+      }
+      this.dataItems = result;
     }
   }
 };
@@ -125,12 +151,30 @@ export default {
   margin: 0 auto;
   max-width: 1400px;
 }
-.column--visibility {
-  display: block;
-  margin: 10px 0;
+.toolbar {
   position: relative;
+  width: 100%;
   text-align: left;
+}
+.column--visibility {
+  display: inline-block;
+  margin: 10px 0;
   font-size: 0.9rem;
+  text-align: left;
+  width: 50%;
+}
+.search--container {
+  display: inline-block;
+  margin: 10px 0;
+  font-size: 0.9rem;
+  text-align: right;
+  width: 50%;
+}
+.search--container input {
+  padding: 7px 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #7a7d80;
 }
 .column--visibility label.toggle {
   color: white;
@@ -163,7 +207,7 @@ export default {
   border: 1px solid grey;
   border-radius: 3px;
   position: absolute;
-  top: 25px;
+  top: 35px;
   min-width: 170px;
   left: 0;
   z-index: 2;
@@ -207,5 +251,18 @@ label.bg--disabled {
 }
 .arrow.active {
   color: #fff;
+}
+@media screen and (max-width: 720px) {
+  .column--visibility {
+    width: 100%;
+    text-align: center;
+  }
+  .search--container {
+    width: 100%;
+    text-align: center;
+  }
+  .headers {
+    position: static;
+  }
 }
 </style>

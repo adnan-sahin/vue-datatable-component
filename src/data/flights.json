@@ -12,7 +12,7 @@
     "date": "31.08.2019",
     "airline": "ANADOLUJET",
     "flightNo": "THY 7497",
-    "origin": "GAZİPAŞA ALANYA",
+    "origin": "GAZIPAŞA ALANYA",
     "scheduleTime": "07:00",
     "estimationTime": "07:00",
     "note": "LANDED"
@@ -28,9 +28,9 @@
   },
   {
     "date": "29.09.2019",
-    "airline": "TUKISH AIRLINES",
+    "airline": "TURKISH AIRLINES",
     "flightNo": "TK 2109",
-    "origin": "İSTANBUL HAVALİMANI",
+    "origin": "ISTANBUL HAVALIMANI",
     "scheduleTime": "11:00",
     "estimationTime": "11:00",
     "note": "DEPARTED"
@@ -48,14 +48,14 @@
     "date": "30.08.2019",
     "airline": "ANADOLUJET",
     "flightNo": "THY 7001",
-    "origin": "İZMİR",
+    "origin": "IZMIR",
     "scheduleTime": "07:10",
     "estimationTime": "07:10",
     "note": "CANCELED"
   },
   {
     "date": "29.09.2019",
-    "airline": "TUKISH AIRLINES",
+    "airline": "TURKISH AIRLINES",
     "flightNo": "THY 7154",
     "origin": "MİLAS-BODRUM",
     "scheduleTime": "11:00",
@@ -67,7 +67,7 @@
     "date": "30.08.2019",
     "airline": "ANADOLUJET",
     "flightNo": "THY 7121",
-    "origin": "GAZİANTEP",
+    "origin": "GAZIANTEP",
     "scheduleTime": "07:20",
     "estimationTime": "07:20",
     "note": "LANDED"
@@ -76,16 +76,16 @@
     "date": "31.08.2019",
     "airline": "PEGASUS",
     "flightNo": "PC 2661",
-    "origin": "GAZİANTEP",
+    "origin": "GAZIANTEP",
     "scheduleTime": "07:55",
     "estimationTime": "07:55",
     "note": "DEPARTED"
   },
   {
-    "date": "31.08.2019",
-    "airline": "TUKISH AIRLINES",
+    "date": "30.08.2019",
+    "airline": "TURKISH AIRLINES",
     "flightNo": "TK 2109",
-    "origin": "İSTANBUL HAVALİMANI",
+    "origin": "ISTANBUL HAVALIMANI",
     "scheduleTime": "11:00",
     "estimationTime": "11:00",
     "note": "DEPARTED"
