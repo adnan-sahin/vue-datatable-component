@@ -30,7 +30,7 @@
     "date": "29.09.2019",
     "airline": "TURKISH AIRLINES",
     "flightNo": "TK 2109",
-    "origin": "ISTANBUL HAVALIMANI",
+    "origin": "ANKARA ESENBOGA",
     "scheduleTime": "11:00",
     "estimationTime": "11:00",
     "note": "DEPARTED"
@@ -85,7 +85,7 @@
     "date": "30.08.2019",
     "airline": "TURKISH AIRLINES",
     "flightNo": "TK 2109",
-    "origin": "ISTANBUL HAVALIMANI",
+    "origin": "ANKARA ESENBOGA",
     "scheduleTime": "11:00",
     "estimationTime": "11:00",
     "note": "DEPARTED"

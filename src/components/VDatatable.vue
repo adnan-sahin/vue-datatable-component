@@ -140,7 +140,7 @@ export default {
 }
 
 .thead-dark {
-  background-color: #343a40;
+  background-color: #1871b9;
   color: #fff;
 }
 .table-striped tbody tr:nth-of-type(odd) {
@@ -179,7 +179,7 @@ export default {
 .column--visibility label.toggle {
   color: white;
   padding: 10px;
-  background: #343a40;
+  background: #1871b9;
   border: none;
   border-radius: 3px;
   outline: none;
@@ -228,7 +228,7 @@ label.bg--disabled {
   color: #928f8f !important;
 }
 .bg--primary {
-  background-color: #007bff !important;
+  background-color: #2d90fa !important;
 }
 .column--visibility .chc--toggle:checked ~ .headers {
   display: block;
@@ -247,7 +247,7 @@ label.bg--disabled {
   line-height: 0.1;
   font-size: 1rem;
   margin-left: 5px;
-  color: rgb(120, 120, 120);
+  color: rgb(126, 126, 126);
 }
 .arrow.active {
   color: #fff;
