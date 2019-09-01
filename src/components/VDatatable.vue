@@ -25,10 +25,11 @@
             v-show="header.visible"
             scope="col"
           >
-            {{ header.text }}
-            <template v-if="currentSortName==header.value">
-              <i :class="sortIconClass"></i>
-            </template>
+            <span>{{ header.text }}</span>
+            <span class="inline-block">
+              <i :class="sortIconClass('asc',header.value)" class="fas fa-sort-up arrow"></i>
+              <i :class="sortIconClass('desc',header.value)" class="fas fa-sort-down arrow"></i>
+            </span>
           </th>
         </draggable>
       </thead>
@@ -62,20 +63,15 @@ export default {
   },
   computed: {
     sortedItems() {
-      return this.items.slice().sort((a, b) => {
-        let modifierDirection = 1;
-        if (this.currentSortDirection === "desc") modifierDirection = -1;
+      return this.items.sort((a, b) => {
+        let modifier = 1;
+        if (this.currentSortDirection === "desc") modifier = -1;
         if (a[this.currentSortName] < b[this.currentSortName])
-          return -1 * modifierDirection;
+          return -1 * modifier;
         if (a[this.currentSortName] > b[this.currentSortName])
-          return 1 * modifierDirection;
+          return 1 * modifier;
         return 0;
       });
-    },
-    sortIconClass() {
-      return this.currentSortDirection == "asc"
-        ? "fas fa-sort-up"
-        : "fas fa-sort-down";
     }
   },
   methods: {
@@ -85,6 +81,12 @@ export default {
           this.currentSortDirection === "asc" ? "desc" : "asc";
       }
       this.currentSortName = sortName;
+    },
+    sortIconClass(sortDirection, sortName) {
+      return this.currentSortName == sortName &&
+        this.currentSortDirection == sortDirection
+        ? "active"
+        : "";
     }
   }
 };
@@ -110,6 +112,7 @@ export default {
   border-bottom: 2px solid #dee2e6;
   cursor: pointer;
 }
+
 .thead-dark {
   background-color: #343a40;
   color: #fff;
@@ -191,5 +194,18 @@ label.bg--disabled {
 }
 .chc--header {
   display: none;
+}
+.inline-block {
+  display: inline-block;
+}
+.arrow {
+  display: block;
+  line-height: 0.1;
+  font-size: 1rem;
+  margin-left: 5px;
+  color: rgb(120, 120, 120);
+}
+.arrow.active {
+  color: #fff;
 }
 </style>
