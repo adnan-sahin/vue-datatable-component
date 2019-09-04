@@ -2,7 +2,7 @@
 The v-data-table component is used for displaying json data as a table.
 
 **Component Features**:
-- Sorting 
+- MultiSorting 
 - Draggable column 
 - Searching 
 - Column Visibility 
@@ -12,6 +12,7 @@ The v-data-table component is used for displaying json data as a table.
  **Component props:**
  **items**: It is used for passing json data as property.
  **headers**: It is used for passing table headers as property.
+ **multisortable**: Specifies whether the component is multisortable or not.
 
 **headers property details:**
  - **text**: It is used to display header text.

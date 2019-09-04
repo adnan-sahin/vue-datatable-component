@@ -32,8 +32,14 @@
           >
             <span>{{ header.text }}</span>
             <span class="inline-block">
-              <i :class="sortIconClass('asc',header.value)" class="fas fa-sort-up arrow"></i>
-              <i :class="sortIconClass('desc',header.value)" class="fas fa-sort-down arrow"></i>
+              <i
+                :class="sortIconClass(sortDirections[0],header.value)"
+                class="fas fa-sort-up arrow"
+              ></i>
+              <i
+                :class="sortIconClass(sortDirections[1],header.value)"
+                class="fas fa-sort-down arrow"
+              ></i>
             </span>
           </th>
         </draggable>
@@ -52,6 +58,8 @@
 </template>
 <script>
 import draggable from "vuedraggable";
+const ASC = "ASC";
+const DESC = "DESC";
 export default {
   props: {
     headers: { required: true, type: Array },
@@ -62,12 +70,13 @@ export default {
   data() {
     return {
       currentSortName: this.headers[0].value,
-      currentSortDirection: "asc",
+      currentSortDirection: ASC,
+      sortDirections: [ASC, DESC],
       search: "",
       toggleVisibility: false,
       headerItems: this.headers,
       dataItems: this.items,
-      sortedColumns: [{ name: this.headers[0].value, direction: "asc" }]
+      sortedColumns: [{ name: this.headers[0].value, direction: ASC }]
     };
   },
   computed: {
@@ -75,7 +84,7 @@ export default {
       const items = this.dataItems;
       return items.sort((a, b) => {
         let modifier = 1;
-        if (this.currentSortDirection === "desc") modifier = -1;
+        if (this.currentSortDirection === DESC) modifier = -1;
         if (a[this.currentSortName] < b[this.currentSortName])
           return -1 * modifier;
         if (a[this.currentSortName] > b[this.currentSortName])
@@ -88,11 +97,10 @@ export default {
     sort(sortName) {
       const column = this.sortedColumns.find(s => s.name == sortName);
       if (column) {
-        this.currentSortDirection =
-          this.currentSortDirection === "asc" ? "desc" : "asc";
-        column.direction = column.direction === "asc" ? "desc" : "asc";
+        column.direction = column.direction === ASC ? DESC : ASC;
+        this.currentSortDirection = column.direction;
       } else {
-        this.currentSortDirection = "asc";
+        this.currentSortDirection = ASC;
       }
       if (this.multisortable) {
         if (!column) {
