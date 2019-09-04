@@ -2,7 +2,7 @@
 The v-data-table component is used for displaying json data as a table.
 
 **Component Features**:
-- Sorting 
+- MultiSorting 
 - Draggable column 
 - Searching 
 - Column Visibility 
