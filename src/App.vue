@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-data-table :items="flights" :headers="headers" />
+    <v-data-table :items="flights" :headers="headers" :multisortable="true" />
   </div>
 </template>
 

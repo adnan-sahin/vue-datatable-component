@@ -55,7 +55,8 @@ import draggable from "vuedraggable";
 export default {
   props: {
     headers: { required: true, type: Array },
-    items: { required: true, type: Array }
+    items: { required: true, type: Array },
+    multisortable: { required: false, type: Boolean, default: true }
   },
   components: { draggable },
   data() {
@@ -65,12 +66,14 @@ export default {
       search: "",
       toggleVisibility: false,
       headerItems: this.headers,
-      dataItems: this.items
+      dataItems: this.items,
+      sortedColumns: [{ name: this.headers[0].value, direction: "asc" }]
     };
   },
   computed: {
     sortedItems() {
-      return this.dataItems.sort((a, b) => {
+      const items = this.dataItems;
+      return items.sort((a, b) => {
         let modifier = 1;
         if (this.currentSortDirection === "desc") modifier = -1;
         if (a[this.currentSortName] < b[this.currentSortName])
@@ -83,15 +86,35 @@ export default {
   },
   methods: {
     sort(sortName) {
-      if (sortName === this.currentSortName) {
+      const column = this.sortedColumns.find(s => s.name == sortName);
+      if (column) {
         this.currentSortDirection =
           this.currentSortDirection === "asc" ? "desc" : "asc";
+        column.direction = column.direction === "asc" ? "desc" : "asc";
+      } else {
+        this.currentSortDirection = "asc";
+      }
+      if (this.multisortable) {
+        if (!column) {
+          this.sortedColumns.push({
+            name: sortName,
+            direction: this.currentSortDirection
+          });
+        }
+      } else {
+        this.sortedColumns = [
+          {
+            name: sortName,
+            direction: this.currentSortDirection
+          }
+        ];
       }
       this.currentSortName = sortName;
     },
     sortIconClass(sortDirection, sortName) {
-      return this.currentSortName == sortName &&
-        this.currentSortDirection == sortDirection
+      return this.sortedColumns.find(
+        s => s.name == sortName && s.direction == sortDirection
+      )
         ? "active"
         : "";
     }
